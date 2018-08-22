@@ -7,10 +7,9 @@ import matplotlib.pyplot as plt
 import numpy as np
 
 def demo():
+    colors = ['r','g','b','o','y','lightgreen','cyan','pink','violet','brown']
+
     digits = datasets.load_digits()
-    # N = 1797
-    # original_d = 
-    # print(dir(digits))
     n, original_dimension = digits.data.shape
     accuracies = []
     components = np.int32(np.linspace(2, 64, 20))
@@ -33,19 +32,27 @@ def demo():
     
 
     print("Random projection accuracies")
-
+    ct = 0
+    ct_color = 0
     # loop over the projection sizes
     for comp in components:
         # create the random projection
         sp = SparseRandomProjection(n_components = comp)
         X = sp.fit_transform(trainData)
-    
+
         # train a classifier on the sparse random projection
         model = LinearSVC()
         model.fit(X, trainTarget)
     
         # evaluate the model and update the list of accuracies
         test = sp.transform(testData)
+        
+        if ct % 4 == 0:
+            c = colors[ct_color]
+            plt.scatter(range(1,comp+1),test[0],marker='o',cmap=c)
+            # plt.scatter(range(1,comp+1),testTarget[:comp],marker='1',cmap=c)
+            ct_color += 1
+        ct += 1
         acc = metrics.accuracy_score(model.predict(test), testTarget)
         accuracies.append(acc)
         print(comp,":",acc)
