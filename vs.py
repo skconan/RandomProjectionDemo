@@ -82,12 +82,12 @@ if __name__ == "__main__":
     num_classes = len(np.unique(y))
     colors = ['r','g','b','o','y','lightgreen','cyan','pink','violet','brown']
 
-    X_pca = PCA(n_components=2).fit_transform(X)
-    for i, c in enumerate(np.unique(y)):
-        plt.plot(X_pca[y == c, 0], X_pca[y == c, 1], 'o', color=colors[i],
-                label=c)
-    plt.legend()
-    plt.savefig("digits_pca.png", bbox_inches="tight")
+    # X_pca = PCA(n_components=2).fit_transform(X)
+    # for i, c in enumerate(np.unique(y)):
+    #     plt.plot(X_pca[y == c, 0], X_pca[y == c, 1], 'o', color=colors[i],
+    #             label=c)
+    # plt.legend()
+    # plt.savefig("digits_pca.png", bbox_inches="tight")
     # PCA here optional. Also try without.
     X = PCA().fit_transform(X)
     # plt.show()
